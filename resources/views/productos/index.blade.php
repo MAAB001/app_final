@@ -12,32 +12,34 @@
 
     <div class="overflow-auto rounded-lg border border-gray-300 shadow-lg">
         <!-- Tabla eliminada: Los productos no deben mostrarse hasta el escaneo -->
-        <table class="w-full text-left border-collapse" style="display: none;">
-            <thead class="bg-gray-800 text-white">
-                <tr>
-                    <th class="p-4">Nombre</th>
-                    <th class="p-4">Categoría</th>
-                    <th class="p-4">Talla</th>
-                    <th class="p-4">Color</th>
-                    <th class="p-4">Precio</th>
-                    <th class="p-4">Stock</th>
-                    <th class="p-4 text-center">Acciones</th>
-                </tr>
-            </thead>
+        <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Categoría</th>
+                <th>Talla</th>
+                <th>Color</th>
+                <th>Precio</th>
+                <th>Stock</th>
+                <th>Imagen</th>
+            </tr>
+        </thead>
+        <tbody>
             @foreach ($productos as $producto)
-	<tr>
-		<td>{{ $producto->nombre }}</td>
-		<td>{{ $producto->categoria }}</td>
-		<td>{{ $producto->talla }}</td>
-		<td>{{ $producto->color }}</td>
-		<td>{{ $producto->precio }}</td>
-		<td>{{ $producto->stock }}</td>
-		<td></td>
-	</tr>
-
+                <tr>
+                    <td>{{ $producto->id }}</td>
+                    <td>{{ $producto->nombre }}</td>
+                    <td>{{ $producto->categoria }}</td>
+                    <td>{{ $producto->talla }}</td>
+                    <td>{{ $producto->color }}</td>
+                    <td>{{ $producto->precio }}</td>
+                    <td>{{ $producto->stock }}</td>
+                    <td><img src="{{ asset('images/' . $producto->imagen) }}" alt="{{ $producto->nombre }}" width="50"></td>
+                </tr>
             @endforeach
-
-        </table>
+        </tbody>
+    </table>
     </div>
 </div>
 

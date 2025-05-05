@@ -12,6 +12,6 @@ class Producto2 extends Model
     protected $table = 'productos2';
     
     use HasFactory;
-    protected $fillable = [ 'id_producto','nombre', 'categoria', 'talla', 'color','precio','stock'];
+    protected $fillable = [ 'id','nombre', 'categoria', 'talla', 'color','precio','stock'];
     public $timestamps = false;
 }

@@ -13,10 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
-        });
+        // Nothing to do here, as the users table is created by default in Laravel
     }
 
     /**
@@ -26,6 +23,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        // The same thing here, nothing to do as the users table is created by default in Laravel
     }
 };

@@ -11,7 +11,7 @@ class ProductoController extends Controller
     public function index()
     {
         $productos = Producto2::all();
-        return view('productos.index', ['productos' => $productos]);
+        return view('productos.index', compact('productos'));
     }
 
     public function vender($id)
@@ -37,23 +37,29 @@ class ProductoController extends Controller
     // Buscar un producto por su ID
     public function buscarPorNFC($id_producto)
     {
-        $producto = Producto::where('id_producto', $id_producto)->first(); // Usando 'id_producto'
-        $productos2 = new Producto2; 
-
-        $productos2-> id_producto = $producto-> id_producto;
-        $productos2-> nombre = $producto->nombre;
-        $productos2-> categoria = $producto-> categoria;
-        $productos2-> talla = $producto-> talla;
-        $productos2-> color = $producto-> color;
-        $productos2-> precio = $producto-> precio;
-        $productos2-> stock = $producto-> stock;
-        
-        $productos2-> save();
+        $producto = Producto::where('id', $id_producto)->first(); // Usando 'id_producto'
 
 
         if (!$producto) {
             return response()->json(['error' => 'Producto no encontrado'], 404);
         }
+        
+        if (!Producto2::where('id', $producto->id)->exists()) {
+            $producto2 = new Producto2();
+            $producto2->id = $producto->id;
+            $producto2->nombre = $producto->nombre;
+            $producto2->categoria = $producto->categoria;
+            $producto2->talla = $producto->talla;
+            $producto2->color = $producto->color;
+            $producto2->precio = $producto->precio;
+            $producto2->stock = $producto->stock;
+            $producto2->rfid_tag = $producto->rfid_tag;
+            $producto2->imagen = $producto->imagen;
+            $producto2->save(); // Guardar el producto en la tabla productos2
+            // Actualizar el stock del producto original
+        }
+
+        
 
         // Registrar el producto escaneado en sesión
         session(['ultimo_escaneo' => $producto]);
